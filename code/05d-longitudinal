@@ -1,0 +1,22 @@
+library(tidyverse)
+
+# This includes the training scan, and the rest
+results_longonly <- filter(results, longitudinal)
+
+ggplot(results_longonly, aes(x = days_since_first_scan / 30, y = LD1)) +
+  geom_point(aes(color = best_scan), size = 3) +
+  geom_line(aes(group = interaction(sub, hemi))) +
+  geom_smooth(method = "lm", aes(linetype = hemi)) +
+  theme_bw() +
+  labs(x = "Months since first scan", y = "LD1", color = "In training data") +
+  facet_wrap(vars(PatientStatus))
+
+lm_randeff_time <- lmer(abs(LD1) ~ days_since_first_scan + (1 | sub), 
+                        data = results_longonly)
+
+summary(lm_randeff_time)
+
+lm_randeff_time_LHS <- lmer(abs(LD1) ~ days_since_first_scan + (1 | sub), 
+                            data = filter(results_longonly, class == "LHS_RH"))
+
+summary(lm_randeff_time_LHS)

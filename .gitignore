@@ -1,3 +1,23 @@
 # Don't upload any of our data
 data/**
 docs/**
+
+# Ignore data files
+**.rds
+**.pickle
+**.csv
+**.xls*
+**.zip
+
+# ignore imaging files
+**.nii*
+
+# ignore r files
+**.Rdata
+**.Rhistory
+
+# ignore data query files - no need to expose
+**.dqc
+
+# don't need to track this
+**.pyc
