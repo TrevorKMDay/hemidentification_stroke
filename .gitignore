@@ -1,0 +1,3 @@
+# Don't upload any of our data
+data/**
+docs/**
